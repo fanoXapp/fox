@@ -1,0 +1,374 @@
+:root{
+  --bg: #000000;
+  --blue-open: #38b6ff;
+  --blue-dark: #38b6ff;
+  --text: #F5F5F5;
+  --muted: #888888;
+}
+
+.splash-screen{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:#000;z-index:5000;transition:opacity .35s ease, visibility .35s ease;}
+.splash-screen.hidden{opacity:0;visibility:hidden;pointer-events:none;}
+.splash-logo{width:min(50vw, 180px);max-width:180px;height:auto;display:block;animation:fadeIn .5s ease both;}
+
+@keyframes fadeIn{from{opacity:0;transform:scale(.95)}to{opacity:1;transform:scale(1)}}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font-family: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+}
+
+.container{max-width:1100px;margin:0 auto;padding:48px 24px;position:relative;z-index:2}
+
+.nav{display:flex;align-items:center;justify-content:space-between}
+.logo{font-weight:800;font-size:20px;letter-spacing:1px}
+.logo .accent{color:var(--blue-open);margin-left:6px}
+
+.nav-actions{display:flex;gap:12px}
+.btn{display:inline-flex;align-items:center;justify-content:center;padding:12px 20px;border-radius:12px;text-decoration:none;color:var(--text);font-weight:600;transition:transform .18s ease,box-shadow .18s ease,opacity .18s ease;position:relative}
+.btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
+.btn.primary{background:linear-gradient(180deg,var(--blue-open),var(--blue-dark));box-shadow:0 8px 24px rgba(0,123,255,0.06);}
+
+.hero{min-height:100vh;display:flex;align-items:center;position:relative;overflow:hidden}
+.hero:before{content:"";position:absolute;inset:0;pointer-events:none}
+
+.hero-content{max-width:640px;padding-top:60px}
+.title{font-size:48px;margin:0 0 14px;line-height:1.02;letter-spacing:0.2px}
+.subtitle{color:var(--muted);margin:0 0 26px;font-size:18px}
+
+.ctas{display:flex;gap:14px}
+.btn-cta{background:linear-gradient(180deg,var(--blue-open),var(--blue-dark));padding:14px 22px;border-radius:12px;box-shadow:0 10px 30px rgba(0,191,255,0.08);transform:translateZ(0)}
+.btn-cta:hover{transform:translateY(-4px)}
+.btn-secondary{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--text)}
+
+.visual{position:absolute;right:0;top:0;bottom:0;width:60%;pointer-events:none;display:flex;align-items:center;justify-content:flex-start}
+.blob{width:80%;opacity:0.95;transform:translateX(8%)}
+
+/* Title: use normal text color */
+.title{color:var(--text)}
+
+/* Responsive */
+@media (max-width:900px){
+  .container{padding:40px 18px}
+  .visual{display:none}
+  .hero-image{width:auto;max-width:220px;margin-bottom:14px;border-radius:12px}
+}
+
+@media (max-width:480px){
+  .title{font-size:28px}
+  .ctas{flex-direction:column}
+  .btn{width:100%}
+}
+
+/* subtle pulsing for CTA */
+/* removed red pulse animation */
+
+/* accessibility */
+.btn:focus{outline:3px solid rgba(0,191,255,0.12);outline-offset:4px}
+
+/* Minimal centered layout for two blue buttons */
+.top-image{display:flex;justify-content:center;padding:60px 12px 8px;background:var(--bg)}
+.hero-image{display:block;max-width:420px;width:90%;height:auto;margin:20px 0 0;border-radius:12px;object-fit:cover}
+.centered{min-height:calc(100vh - 120px);display:flex;align-items:flex-start;justify-content:center;background:var(--bg);padding-top:22px;padding-bottom:110px}
+.button-group{display:flex;gap:12px;align-items:center;width:90%;max-width:720px}
+
+/* Reels section: three vertical promo videos between hero and signup */
+.reels-section{padding:12px 0 6px}
+.reels{display:flex;gap:14px;justify-content:center;align-items:flex-start;max-width:980px;margin:0 auto;padding:0 12px}
+.reel-card{flex:0 0 170px;width:170px;border-radius:12px;overflow:hidden;background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.04)}
+.reel{width:100%;height:auto;aspect-ratio:9/16;display:block;object-fit:cover;background:#000}
+
+/* play overlay button positioned above the video center */
+.reel-card{position:relative}
+.reel-card .play-overlay{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:4;border:none;background:transparent;padding:0;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:opacity .18s ease,transform .18s ease}
+.reel-card .play-overlay svg{width:56px;height:56px;display:block}
+.reel-card .play-overlay svg circle{fill:rgba(0,0,0,0.35)}
+/* ensure the triangle is centered within the circle */
+.reel-card .play-overlay .play-triangle{transform-origin:12px 12px;transform:none}
+.reel-card .play-overlay:hover svg circle{fill:rgba(0,0,0,0.45)}
+
+/* increase hit target on small screens */
+@media (max-width:420px){
+  .reel-card .play-overlay svg{width:56px;height:56px}
+}
+
+  .reels-section{padding-bottom:0}
+  .centered{padding-top:0;padding-bottom:40px}
+  .button-group-vertical{gap:4px;margin-top:2px}
+/* hidden state: fade out and prevent pointer events */
+.reel-card .play-overlay.hidden{opacity:0;transform:translate(-50%,-50%) scale(0.9);pointer-events:none}
+
+/* ensure native video controls are hidden for .reel (remove browser menu/three-dots) */
+.reel::-webkit-media-controls{display:none !important}
+.reel::-webkit-media-controls-enclosure{display:none !important}
+.reel{cursor:pointer}
+
+@media (max-width:760px){
+  .reels{gap:10px}
+  .reel-card{flex:0 0 30vw;width:30vw}
+}
+
+@media (max-width:420px){
+  /* show all three reels on-screen by dividing width into thirds */
+  .reels{gap:4px;padding:2px;flex-wrap:nowrap;overflow-x:hidden;justify-content:space-between}
+  .reel-card{flex:0 0 calc((100% - 8px)/3);width:calc((100% - 8px)/3);margin:0}
+  /* tighten spacing to bring Sign up closer */
+  .centered{padding-top:2px}
+  .button-group-vertical{margin-top:2px}
+}
+
+/* stacked layout: single button above and below image */
+.stacked{flex-direction:column}
+.button-group-vertical{display:flex;flex-direction:column;gap:12px;align-items:center;width:100%;margin-top:28px}
+.btn.full{width:92%;max-width:720px;display:inline-flex;justify-content:center}
+.stacked .btn{flex:0}
+.btn.blue{background:linear-gradient(180deg,var(--blue-open),var(--blue-dark));color:#fff;padding:14px 26px;border-radius:999px;box-shadow:0 12px 30px rgba(0,191,255,0.18);border:none}
+.btn.blue:hover{transform:translateY(-4px)}
+  .btn.outline-black{background:transparent;border:1px solid #000;color:#000;padding:12px 20px;border-radius:12px}
+  .btn.outline-black:hover{background:rgba(0,0,0,0.06);color:#000}
+.btn.blue.outline{background:transparent;color:var(--text);border:2px solid rgba(0,191,255,0.12);box-shadow:none;border-radius:999px}
+.btn.blue.outline:hover{background:rgba(0,191,255,0.04)}
+.btn.btn-small{padding:10px 16px;font-size:14px;font-weight:600}
+.reel-card-watch-more{display:flex;align-items:center;justify-content:center;background:transparent;flex:0 0 140px;width:140px}
+
+/* consent paragraph below buttons */
+.consent{margin-top:12px;color:var(--muted);font-size:13px;text-align:center;max-width:720px;padding:0 12px;line-height:1.35}
+.consent a{color:var(--blue-open);text-decoration:none;font-weight:600;border-bottom:1px dotted rgba(255,255,255,0.06);padding-bottom:1px}
+.consent a:hover{text-decoration:underline;opacity:0.98}
+
+/* three horizontal buttons under consent, RTL (right-to-left) */
+.footer-actions{display:flex;gap:14px;flex-direction:column;width:100%;max-width:720px;margin:80px auto 0;align-items:center}
+.footer-actions .btn{display:inline-flex;justify-content:center;box-shadow:0 8px 22px rgba(0,0,0,0.22)}
+
+@media (max-width:480px){
+  .footer-actions{gap:10px}
+  .footer-actions .btn{padding:12px 14px;height:50px;font-size:15px}
+  .footer-actions{margin:40px auto 0}
+}
+
+  /* X / Twitter brand button: use pill shape like Sign up and circular logo */
+  .btn.twitter{background:linear-gradient(180deg,#1da1f2,#0d95e8);color:#fff;padding-top:12px;padding-bottom:12px;padding-left:18px;padding-right:18px;border-radius:999px;border:none}
+  .btn.twitter:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(13,149,232,0.12)}
+  .btn.twitter .icon-left img{width:22px;height:22px;border-radius:50%;object-fit:cover}
+
+  /* explicit class for X logo if used elsewhere */
+  .x-logo{width:22px;height:22px;border-radius:50%;object-fit:cover;display:block;transform:translateX(-12px);}
+
+  /* Google brand button */
+  .btn.google{background:linear-gradient(180deg,#4285f4,#357ae8);color:#fff;padding:12px 22px;border-radius:12px;border:none}
+  .btn.google:hover{transform:translateY(-3px);box-shadow:0 14px 30px rgba(53,122,232,0.10)}
+
+  /* button inner layout and icon */
+  .btn .btn-inner{display:flex;align-items:center;gap:12px;justify-content:center;direction:ltr}
+  .btn .icon-left{display:inline-flex;align-items:center;justify-content:center}
+  .btn .icon-left svg{width:22px;height:22px;display:block}
+  .btn .btn-label{display:inline-block}
+
+  /* ensure images inside .icon-left scale correctly */
+  .btn .icon-left img{width:22px;height:22px;display:block;object-fit:contain}
+
+  /* Google button: match Sign up appearance (use blue style), keep small inline logo */
+  .btn.google{border-radius:999px;padding-left:18px;padding-right:18px}
+  .btn.google .icon-left{position:relative;left:auto;top:auto;transform:translateX(-6px)}
+  .btn.google .icon-left img{width:22px;height:22px;border-radius:50%;background:transparent;padding:0;box-shadow:none;display:block;object-fit:cover}
+  .btn.google .btn-label{position:static;transform:none;font-weight:600}
+
+  /* Footer styles */
+  .site-footer{border-top:1px solid rgba(255,255,255,0.12);padding:26px 12px 40px;margin-top:36px;color:var(--muted);background:linear-gradient(180deg, rgba(255,255,255,0.01), transparent)}
+  .footer-bottom{padding:16px 12px 0;text-align:left}
+  .footer-branding{color:var(--muted);font-size:12px;font-weight:600;opacity:0.7;display:flex;align-items:center;gap:6px}
+  .brand-circle{display:inline-flex;align-items:center;justify-content:center;width:14px;height:14px;border-radius:50%;border:1px solid var(--muted);font-size:8px;font-weight:600;color:var(--muted)}
+  .brand-circle{display:inline-flex;align-items:center;justify-content:center;width:12px;height:12px;border-radius:50%;border:1px solid var(--muted);font-size:9px;line-height:12px;font-weight:700;color:var(--muted)}
+  .site-footer .footer-inner{max-width:1100px;margin:0 auto;padding:0;display:flex;justify-content:center}
+  .footer-bottom{display:flex;justify-content:space-between;align-items:center;max-width:1100px;margin:0 auto;padding:12px 12px}
+  .footer-links{display:flex;gap:20px;justify-content:flex-start;align-items:center;flex-wrap:wrap}
+  .footer-link{color:var(--muted);text-decoration:none;font-weight:600;font-size:14px;padding:6px 4px}
+  .footer-link:hover{color:var(--text);text-decoration:underline}
+  .footer-link:not(:first-child)::before{content:"•";margin-right:8px;color:rgba(255,255,255,0.06);margin-left:8px}
+
+  /* mailto links — light blue */
+  a[href^="mailto:"]{color:var(--blue-open);text-decoration:none;font-weight:600}
+  a[href^="mailto:"]:hover{color:lightblue;text-decoration:underline}
+
+  /* Language switcher */
+  .language-switcher{display:flex;align-items:center;gap:8px;margin-left:24px;position:relative}
+  .lang-icon{display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;color:var(--muted)}
+  .lang-icon svg{width:100%;height:100%;color:inherit;display:block}
+  .lang-button{background:transparent;border:none;color:var(--muted);font-weight:600;font-size:14px;cursor:pointer;padding:6px 10px;border-radius:8px;transition:color 0.18s ease}
+  .lang-button:hover{color:var(--text)}
+  .lang-menu{list-style:none;position:absolute;bottom:calc(100% + 8px);right:0;background:var(--bg);border:1px solid rgba(255,255,255,0.12);border-radius:8px;padding:8px 0;margin:0;min-width:160px;box-shadow:0 8px 18px rgba(0,0,0,0.35);z-index:1000;transform-origin:bottom right}
+  .lang-option{display:flex;color:var(--muted);text-decoration:none;padding:8px 12px;font-size:14px;transition:color 0.18s ease}
+  .lang-option:hover{color:var(--text)}
+  .lang-menu li{margin:0}
+
+  /* Contact card */
+  .contact-card{background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);padding:18px;border-radius:12px}
+  .contact-row{display:flex;align-items:center;gap:12px}
+  .contact-label{font-weight:700;color:var(--text);font-size:14px}
+  .contact-icon{display:inline-flex;align-items:center;justify-content:center;color:var(--muted)}
+  .contact-email{color:var(--blue-open);font-weight:700;text-decoration:none}
+  .contact-email:hover{text-decoration:underline;color:lightblue}
+  .contact-note{color:var(--muted);margin-top:14px;line-height:1.5}
+
+  /* Signup modal styles */
+  .modal{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.6);z-index:2000;visibility:hidden;opacity:0;transition:opacity .18s ease,visibility .18s}
+  .modal[aria-hidden="false"]{visibility:visible;opacity:1}
+  #reel-modal{background:transparent;}
+  #reel-modal .modal-dialog{background:transparent;border:none;box-shadow:none;padding:0;}
+  .modal-dialog{position:relative;background:rgba(10,10,10,0.98);border-radius:12px;padding:22px;max-width:720px;width:94%;box-shadow:0 12px 40px rgba(0,0,0,0.6);border:1px solid rgba(255,255,255,0.04)}
+  .reel-modal-content{display:flex;justify-content:center;align-items:center;width:100%;overflow:hidden;}
+  .reel-player-wrap{position:relative;display:inline-flex;align-items:center;justify-content:center;width:min(92vw, 420px);max-width:min(96vw, 1100px);aspect-ratio:9 / 16;background:linear-gradient(135deg, rgba(255,255,255,0.16), rgba(255,255,255,0.04));backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-radius:20px;box-shadow:inset 0 0 0 1px rgba(255,255,255,0.08);overflow:hidden;}
+  .reel-modal-video{width:100%;height:100%;max-width:100%;max-height:min(92vh, 900px);border-radius:20px;background:#000;display:block;overflow:hidden;object-fit:cover;}
+  .reel-modal-video.ready{opacity:1;transition:opacity .3s ease;}
+  .reel-modal-video:not(.ready){opacity:0;}
+  .reel-modal-video::-webkit-media-controls{display:block !important;}
+  .reel-modal-video::-webkit-media-controls-enclosure{display:block !important;}
+  .reel-modal-video::-webkit-media-controls-panel{display:block !important;}
+  .reel-modal-video::-webkit-media-controls-timeline{display:block !important;}
+  .reel-modal-video::-webkit-media-controls-volume-slider{display:block !important;}
+  .reel-nav-btn{position:absolute;right:10px;width:42px;height:42px;border-radius:999px;border:1px solid rgba(255,255,255,0.18);background:rgba(0,0,0,0.55);color:#fff;font-size:20px;display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .18s ease,background .18s ease,opacity .18s ease;z-index:5;}
+  .reel-nav-btn.up{top:50%;transform:translateY(calc(-50% - 24px));}
+  .reel-nav-btn.down{top:50%;transform:translateY(calc(-50% + 24px));}
+  .reel-nav-btn:hover{background:rgba(0,0,0,0.75);transform:translateY(calc(-50% - 24px)) scale(1.05);}
+  .reel-nav-btn.down:hover{transform:translateY(calc(-50% + 24px)) scale(1.05);}
+  .reel-nav-btn:active{transform:translateY(calc(-50% - 24px)) scale(0.98);}
+  .reel-nav-btn.down:active{transform:translateY(calc(-50% + 24px)) scale(0.98);}
+  .modal-close{position:absolute;right:12px;top:12px;background:transparent;border:none;color:var(--muted);font-size:20px;cursor:pointer}
+  .signup-form{display:flex;flex-direction:column;gap:10px;margin-top:6px}
+  .signup-form .form-field{display:flex;flex-direction:column;font-size:13px;color:var(--muted)}
+  .signup-form input{margin-top:6px;padding:10px 12px;border-radius:10px;border:1px solid rgba(255,255,255,0.06);background:transparent;color:var(--text)}
+  .signup-form input:focus{outline:2px solid rgba(56,182,255,0.12);border-color:rgba(56,182,255,0.18)}
+  /* show invalid state (red) for inputs */
+  .signup-form input.invalid{border-color:#ff4d4f;background:rgba(255,77,79,0.03);box-shadow:0 0 0 4px rgba(255,77,79,0.06);}
+  /* show invalid state (red) for the label when its input is invalid */
+  .signup-form .form-field.invalid{color:#ff4d4f}
+  .signup-form .form-field.invalid input{border-color:#ff4d4f;background:rgba(255,77,79,0.03);box-shadow:0 0 0 4px rgba(255,77,79,0.06)}
+  .form-actions{display:flex;gap:10px;justify-content:flex-end;margin-top:6px}
+  .btn.outline{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted);padding:10px 14px;border-radius:10px}
+  .modal-dialog .btn.full{width:100%;display:inline-flex;justify-content:center}
+
+  .modal-consent{color:var(--muted);font-size:13px;margin:6px 0 8px;line-height:1.3}
+  .modal-consent a{color:var(--blue-open);text-decoration:none;font-weight:600}
+  .modal-consent a:hover{text-decoration:underline}
+  .modal-hero{display:block;margin:0 auto 10px;width:110px;height:auto;border-radius:8px;object-fit:cover}
+  /* Account type chooser styles */
+  .account-type-list{display:flex;flex-direction:column;gap:6px;margin-top:8px}
+  .account-option{display:flex;align-items:center;gap:8px;padding:8px;border-radius:10px;cursor:pointer;border:1px solid transparent}
+  .account-option:focus{outline:2px solid rgba(56,182,255,0.12);outline-offset:2px}
+  .option-circle{width:18px;height:18px;border-radius:50%;border:2px solid rgba(255,255,255,0.12);flex:0 0 18px;background:transparent}
+  .account-option.selected{/* no background or border on the whole option; selection shown on the circle only */}
+  .account-option.selected .option-circle{background:var(--blue-open);border-color:var(--blue-open)}
+  .option-label{font-weight:700;color:var(--text);font-size:14px}
+  .account-actions{display:flex;justify-content:flex-end;margin-top:8px}
+  .btn[disabled]{opacity:0.5;pointer-events:none}
+  /* gender thumbnail grid */
+  .gender-grid{display:flex;gap:10px;justify-content:center;align-items:center}
+  .gender-thumb{width:64px;height:64px;border-radius:10px;overflow:hidden;border:2px solid transparent;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;background:rgba(255,255,255,0.02)}
+  .gender-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+  .gender-thumb.selected{border-color:var(--blue-open);box-shadow:0 8px 18px rgba(56,182,255,0.08)}
+  .gender-thumb:focus{outline:2px solid rgba(56,182,255,0.12);outline-offset:2px}
+  .forgot-wrapper{display:flex;justify-content:flex-end;margin:6px 0 0}
+  .forgot-link{color:var(--blue-open);text-decoration:none;font-weight:600;font-size:13px}
+  .forgot-link:hover{text-decoration:underline}
+  .modal-tabs{display:flex;justify-content:space-between;width:260px;max-width:84%;margin:6px auto 12px;padding:0 8px}
+  .modal-tab{background:transparent;border:none;padding:6px 0;border-radius:0;font-weight:700;color:var(--muted);cursor:pointer;font-size:15px;border-bottom:3px solid transparent;transition:color .12s,border-color .12s}
+  .modal-tab:hover{color:var(--blue-open)}
+  .modal-tab.active{color:var(--blue-open);border-bottom-color:var(--blue-open)}
+  .modal-divider{display:flex;align-items:center;gap:12px;color:var(--muted);font-weight:700;font-size:13px;margin:12px 0}
+  .modal-divider::before,.modal-divider::after{content:"";flex:1;height:1px;background:rgba(255,255,255,0.06)}
+  .modal-divider span{padding:0 8px;background:transparent}
+  .auth-icons{display:flex;gap:12px;justify-content:center;margin-top:8px}
+
+/* Ensure auth icons are centered in the login modal specifically */
+#login-modal .auth-icons{display:flex;justify-content:center;align-items:center;gap:12px;width:100%;margin-top:12px}
+  .auth-btn{width:36px;height:36px;border-radius:50%;border:none;background:transparent;display:inline-flex;align-items:center;justify-content:center;cursor:pointer;overflow:hidden;padding:0}
+  .auth-btn img{width:70%;height:70%;display:block;object-fit:cover;border-radius:50%}
+  .auth-btn svg{width:70%;height:70%;display:block}
+  .auth-btn:hover{box-shadow:0 8px 20px rgba(56,182,255,0.06)}
+
+  /* Passwordless: for full-width footer/button-group usage use same layout as Google/X full buttons */
+  .btn.passwordless-trigger{border-radius:999px;padding-left:18px;padding-right:18px;background:linear-gradient(180deg,var(--blue-open),var(--blue-dark));color:#fff}
+  .btn.passwordless-trigger .icon-left img{width:22px;height:22px;border-radius:50%;object-fit:cover}
+
+  /* align the icon like other brand buttons */
+  .btn.passwordless-trigger .icon-left{position:relative;left:auto;top:auto;transform:translateX(-6px)}
+
+  /* For small circular auth icon buttons use the same sizing as other auth icons */
+  .auth-btn.passwordless-trigger img{width:70%;height:70%;display:block;object-fit:cover;border-radius:50%}
+
+/* Age confirmation checkbox in account-type modal */
+.age-confirm{display:flex;align-items:center;gap:10px;margin-top:12px;font-size:13px;color:var(--muted);}
+.age-confirm input[type="checkbox"]{appearance:none;-webkit-appearance:none;width:18px;height:18px;border:2px solid rgba(255,255,255,0.12);border-radius:4px;background:transparent;position:relative;cursor:pointer}
+.age-confirm input[type="checkbox"]:focus{outline:3px solid rgba(56,182,255,0.12);outline-offset:2px}
+.age-confirm input[type="checkbox"]:checked{background:var(--blue-open);border-color:var(--blue-open)}
+.age-confirm input[type="checkbox"]:checked::after{content:"";position:absolute;left:5px;top:2px;width:5px;height:9px;border:2px solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg)}
+.age-label{color:var(--text);font-size:13px}
+
+  @media (max-width:720px){
+    .site-footer .footer-inner{flex-direction:column;gap:10px;align-items:center}
+  }
+
+  @media (max-width:480px){
+    .site-footer{padding:18px 10px}
+    .footer-links{gap:12px}
+    .footer-link{font-size:13px}
+  }
+
+/* Horizontal bar-style buttons (responsive sizing) */
+/* Base button styles are defined above to ensure consistency across components */
+.btn{font-size:16px}
+.btn.blue{box-shadow:0 10px 20px rgba(0,191,255,0.10)}
+
+/* error state for primary buttons (red) */
+.btn.error{background:#ff4d4f !important;border-color:#ff4d4f;color:#fff;box-shadow:0 8px 20px rgba(255,77,79,0.12)}
+
+/* password visibility toggle inside input */
+.pw-field{position:relative;display:flex;align-items:center}
+.pw-field input{flex:1;padding-right:44px}
+.pw-toggle{position:absolute;right:8px;top:50%;transform:translateY(-50%);background:transparent;border:none;color:var(--muted);padding:6px;border-radius:8px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center}
+.pw-toggle:hover{color:var(--text)}
+.pw-toggle:focus{outline:2px solid rgba(56,182,255,0.12);outline-offset:2px}
+.pw-toggle .eye-icon{width:18px;height:18px;display:block}
+
+@media (max-width:480px){
+  .button-group{gap:10px;width:92%;}
+  .btn{height:50px;font-size:15px;padding:12px 14px;border-radius:10px}
+  .hero-image{width:auto;max-width:220px;margin-bottom:22px;border-radius:12px}
+  .centered{padding:24px 10px}
+}
+
+/* Additional mobile adjustments */
+@media (max-width:700px){
+  .centered{flex-direction:column;padding:28px 16px}
+  .visual{display:none}
+  .title{font-size:20px}
+  .logo{font-size:18px}
+  .btn{font-size:16px;padding:14px 18px}
+}
+
+/* Mobile polish: improve spacing, touch targets, and visual hierarchy */
+@media (max-width:480px){
+  html{ -webkit-text-size-adjust:100%; }
+  body{ font-size:15px; }
+  .title{font-size:22px}
+  .container{padding:18px 12px}
+  .reel-card{border-radius:10px;box-shadow:0 8px 22px rgba(0,0,0,0.5);overflow:hidden}
+  .reel{border-radius:10px}
+  /* Match desktop: transparent overlay, same SVG size and centering */
+  .reel-card .play-overlay{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:4;border:none;background:transparent;padding:0;display:flex;align-items:center;justify-content:center;cursor:pointer}
+  .reel-card .play-overlay svg{width:56px;height:56px;display:block}
+  .reel-card .play-overlay svg circle{fill:rgba(0,0,0,0.35)}
+  .centered{padding-top:8px;padding-bottom:80px}
+  .button-group-vertical{gap:10px;margin-top:8px}
+  .btn{padding:14px 18px;min-height:52px;border-radius:12px;font-size:16px}
+  .modal-dialog{width:100%;max-width:100%;margin:12px;border-radius:12px;padding:16px}
+  .reel-modal-video{max-height:calc(100vh - 140px);}
+
+/* Passwordless modal title color */
+#passwordless-title{color:var(--blue-open)}
+
